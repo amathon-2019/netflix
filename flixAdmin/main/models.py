@@ -173,6 +173,12 @@ class User(models.Model):
     def __str__(self):
         return self.email
 
+    def isPayed(self):
+        if self.is_payed:
+            return 'Yes'
+        else:
+            return 'No'
+
     class Meta:
         managed = False
         db_table = 'user'
