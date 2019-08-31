@@ -6,7 +6,7 @@
 프론트앤드 프로젝트, Vue.js
 
 ### Netflix
-백앤드 프로젝트, Spring boot, AWS EC2
+백앤드 프로젝트, Spring boot, AWS EC2, AWS RDS
 
 ### flixAdmin
 어드민 사이트, Django, AWS EB

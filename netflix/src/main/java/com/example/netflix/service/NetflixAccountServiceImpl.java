@@ -10,6 +10,7 @@ import com.example.netflix.entity.NetflixAccountUserRelationshipEntity;
 import com.example.netflix.entity.UserEntity;
 import com.example.netflix.repository.NetflixAccountRepository;
 import com.example.netflix.repository.NetflixAccountUserRelationshipRepository;
+import com.example.netflix.repository.UserRepository;
 
 @Service
 public class NetflixAccountServiceImpl implements NetflixAccountService {
@@ -21,11 +22,14 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 	NetflixAccountUserRelationshipRepository netflixAccountRelationshipRepository;
 	
 	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
 	PasswordFactory passwordFactory;
 	
 	//새로운 계정 추가 실패하면 null 성공하면 entity 반환
 	@Override
-	public NetflixAccountEntity addAccount(NetflixAccountEntity netflixAccountEntity) {
+	public NetflixAccountEntity addAccount(NetflixAccountEntity netflixAccountEntity) throws Exception {
 		boolean available = netflixAccountRepository.existsByEmail(netflixAccountEntity.getEmail()); //이메일이 존재하면 true가 리턴됨
 		if (available) {
 			//이미 존재하는 이름이므로 실패
@@ -40,7 +44,7 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 
 	//비밀번호 랜덤으로 변경. 실패하면 null 성공하면 entity 반환
 	@Override
-	public NetflixAccountEntity changePassword(NetflixAccountEntity netflixAccountEntity) {
+	public NetflixAccountEntity changePassword(NetflixAccountEntity netflixAccountEntity) throws Exception {
 		NetflixAccountEntity findedAccount;
 		if (netflixAccountEntity.getId()!=0) {
 			//id로 식별 가능 하면
@@ -63,7 +67,12 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 	
 	//해당 회원에게 할당 된 계정 불러오기
 	@Override
-	public NetflixAccountEntity getUsersAccount(UserEntity userEntity) {
+	public NetflixAccountEntity getUsersAccount(UserEntity userEntity) throws Exception {
+		UserEntity user = userRepository.findById(userEntity.getId());
+		//결제 안되어있으면 안나감
+		if (!user.isPayed())
+			throw new Exception();
+		
 		NetflixAccountUserRelationshipEntity relationship = netflixAccountRelationshipRepository.findByUserId(userEntity.getId());
 		NetflixAccountEntity account = netflixAccountRepository.findById(relationship.getAccountId());
 		return account;
@@ -71,7 +80,7 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 
 	//해당 계정은 아무도 안쓰는 계정이므로 안쓴거로 설정해주기(날짜 이상한걸로 바꿔줌 : 10년전껄로)
 	@Override
-	public void setToUnusedAccount(NetflixAccountEntity netflixAccountEntity) {
+	public void setToUnusedAccount(NetflixAccountEntity netflixAccountEntity) throws Exception {
 		netflixAccountEntity.setStartDate(LocalDate.now().minusYears(10));
 		netflixAccountEntity.setPassword(passwordFactory.getPassword());
 		netflixAccountRepository.save(netflixAccountEntity);

@@ -28,4 +28,6 @@ public class UserEntity {
 	@Column
 	private boolean isPayed;
 
+	@Column
+	private String pgTID;
 }

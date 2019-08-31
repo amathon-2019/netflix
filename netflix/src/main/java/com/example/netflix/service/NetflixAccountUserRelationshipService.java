@@ -5,9 +5,9 @@ import com.example.netflix.entity.UserEntity;
 
 public interface NetflixAccountUserRelationshipService {
 	
-	void makeRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity);
+	void makeRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity) throws Exception;
 	
-	void deleteRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity);
+	void deleteRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity) throws Exception;
 
-	void resetAccount(NetflixAccountEntity netflixAccountEntity);
+	void resetAccount(NetflixAccountEntity netflixAccountEntity) throws Exception;
 }
