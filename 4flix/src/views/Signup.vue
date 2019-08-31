@@ -13,10 +13,10 @@
         >
         </el-input>
         <div v-if="isCorrectEmail">
-          <p id="result" class="success">{{validationResult}}</p>
+          <p id="result" class="success">{{emailValidationResult}}</p>
         </div>
         <div v-else>
-          <p id="result" class="fail">{{validationResult}}</p>
+          <p id="result" class="fail">{{emailValidationResult}}</p>
         </div>
         
       </div>
@@ -30,6 +30,12 @@
           show-password
         >
         </el-input>
+        <div v-if="isCorrectPassword">
+          <p id="result" class="success">{{passwordValidationResult}}</p>
+        </div>
+        <div v-else>
+          <p id="result" class="fail">{{passwordValidationResult}}</p>
+        </div>
       </div>
       <div class="input-wrapper">
         <el-input
@@ -41,6 +47,12 @@
           show-password
         >
         </el-input>
+        <div v-if="isConfirmed">
+          <p id="result" class="success">{{confirmPassword}}</p>
+        </div>
+        <div v-else>
+          <p id="result" class="fail">{{confirmPassword}}</p>
+        </div>
       </div>
       
     </div>
@@ -59,19 +71,40 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      validationResult: "",
-      isCorrectEmail: false
+      emailValidationResult: "",
+      passwordValidationResult: "",
+      confirmPassword: "",
+      isCorrectEmail: false,
+      isCorrectPassword: false,
+      isConfirmed: false
     };
   },
   watch: {
     email: function(email) {
-      console.log(email);
       let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (re.test(email)) {
         this.isCorrectEmail = true;
-        this.validationResult = "올바른 이메일 형식입니다.";
+        this.emailValidationResult = "올바른 이메일 형식입니다.";
       } else {
-        this.validationResult = "이메일 형식이 올바르지 않습니다.";
+        this.emailValidationResult = "이메일 형식이 올바르지 않습니다.";
+      }
+    },
+    password: function(password) {
+      if (password.length > 0 && password.length < 10) {
+        this.passwordValidationResult = "비밀번호가 너무 짧습니다.";
+      } else if (password.length > 10) {
+        alert("10글자 미만으로 입력해주세요");
+      } else {
+        this.isCorrectPassword = true;
+        this.passwordValidationResult = "올바른 비밀번호 형식입니다.";
+      }
+    },
+    passwordConfirm: function(passwordConfirm) {
+      if (this.password === passwordConfirm) {
+        this.isConfirmed = true;
+        this.confirmPassword = "비밀번호가 일치합니다.";
+      } else {
+        this.confirmPassword = "비밀번호가 일치하지 않습니다.";
       }
     }
   },
