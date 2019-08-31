@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <h1 class="title">회원 가입</h1>
+    <h1 class="title">회원가입</h1>
     <div class="form-wrapper">
       <div class="input-wrapper">
         <el-input
