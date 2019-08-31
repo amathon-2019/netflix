@@ -23,9 +23,9 @@
         <span>비밀번호 변경</span>
         <hr />
         <div>
-          <el-input placeholder="기존 비밀번호"></el-input>
-          <el-input placeholder="신규 비밀번호"></el-input>
-          <el-input placeholder="신규 비밀번호 확인"></el-input>
+          <el-input v-model="prevPassword" show-password clearable placeholder="기존 비밀번호"></el-input>
+          <el-input v-model="newPassword" show-password clearable placeholder="신규 비밀번호"></el-input>
+          <el-input v-model="newPassword2" show-password clearable placeholder="신규 비밀번호 확인"></el-input>
           <el-button class="pwConfirm">비밀번호 변경</el-button>
         </div>
         <div></div>
@@ -40,7 +40,10 @@ export default {
     return {
       isPayment: false,
       netflixEmail: 'gtah2yk@gmail.com',
-      netflixPw: 'gtah2yk'
+      netflixPw: 'gtah2yk',
+      prevPassword: '',
+      newPassword: '',
+      newPassword2: ''
     };
   }
 };
@@ -50,7 +53,6 @@ export default {
 .el-input {
   .el-input__inner {
     width: 100%;
-    margin-bottom: 10px;
   }
 }
 </style>
