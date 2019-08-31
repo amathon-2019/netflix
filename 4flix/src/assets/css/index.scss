@@ -16,11 +16,11 @@ $sub-color__hover: rgb(163, 163, 163);
     color: white;
     border: 1px solid $focus;
   }
-  // &:hover {
-  //   background-color: $hover;
-  //   color: white;
-  //   border: 1px solid $hover;
-  // }
+  &:hover {
+    background-color: $hover;
+    color: white;
+    border: 1px solid $hover;
+  }
   &:active {
     background-color: $focus;
     color: white;
