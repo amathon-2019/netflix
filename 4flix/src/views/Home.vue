@@ -4,8 +4,8 @@
       <vue-glide-slide class="home-glide-slide" v-for="i in 10" :key="i">Slide {{ i }}</vue-glide-slide>
     </vue-glide>
     <div class="home-form">
-      <el-button class="gray">Login</el-button>
-      <el-button>Sign Up</el-button>
+      <el-button>Login</el-button>
+      <el-button class="gray">Sign Up</el-button>
     </div>
   </div>
 </template>
@@ -34,6 +34,16 @@ export default {
   &-glide {
     &-slide {
       background-color: olive;
+    }
+  }
+  &-form {
+    display: flex;
+    margin:auto;
+    flex-direction: column;
+    width:70%;
+    max-width:800px;
+    .el-button{
+      margin-bottom:10px;
     }
   }
 }

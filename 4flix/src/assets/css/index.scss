@@ -16,11 +16,11 @@ $sub-color__hover: rgb(163, 163, 163);
     color: white;
     border: 1px solid $focus;
   }
-  &:hover {
-    background-color: $hover;
-    color: white;
-    border: 1px solid $hover;
-  }
+  // &:hover {
+  //   background-color: $hover;
+  //   color: white;
+  //   border: 1px solid $hover;
+  // }
   &:active {
     background-color: $focus;
     color: white;
@@ -30,8 +30,23 @@ $sub-color__hover: rgb(163, 163, 163);
 
 .el-button {
   @include makeButton($main-color, $main-color__focus, $main-color__hover);
+  margin: 0;
 }
 
 .el-button.gray {
   @include makeButton($sub-color, $sub-color__focus, $sub-color__hover);
+  margin: 0;
+}
+
+.el-input {
+  width: 100%;
+  .el-input__inner {
+    width: 80%;
+    height: 50px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333333;
+    color: white;
+  }
+  margin-bottom: 15px;
 }
