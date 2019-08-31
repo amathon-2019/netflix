@@ -12,6 +12,9 @@ with open(secret) as f:
     try:
         secret = secrets['SECRET_KEY']
         ah = secrets['ALLOWED_HOST']
+        dbid = secrets['dbid']
+        dbpw = secrets['dbpw']
+        dbhost = secrets['dbhost']
     except KeyError:
         raise ImproperlyConfigured('FATAL: FAIL TO LOAD SECRET KEY')
 
@@ -81,9 +84,9 @@ DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'netflix',
-            'USER': 'netflix',
-            'PASSWORD': '1234',
-            'HOST': '13.124.122.246',
+            'USER': dbid,
+            'PASSWORD': dbpw,
+            'HOST': dbhost,
             'PORT': '3306',
             'OPTIONS': {
                 'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
