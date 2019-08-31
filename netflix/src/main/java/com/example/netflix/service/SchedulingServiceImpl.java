@@ -40,12 +40,13 @@ public class SchedulingServiceImpl implements SchedulingService{
 
 	//해당 날짜에 해당하는 계정 비밀번호 전체 리셋 : 회원들끼리 바꿔주기
 	@Transactional
-	public void resetAndRegroup() throws Exception {
+	public void resetAndRegroup(int menu) throws Exception {
+		List<NetflixAccountEntity> accountList;
 		//해당 날짜에 해당하는 그룹들 불러오기(이전달)
-		//List<NetflixAccountEntity> accountList = netflixAccountRepository.findByStartDate(LocalDate.now().minusMonths(1l));
-		
-		//테스트용 
-		List<NetflixAccountEntity> accountList = netflixAccountRepository.findByStartDate(LocalDate.now());
+		if(menu==1) 
+			accountList = netflixAccountRepository.findByStartDate(LocalDate.now().minusMonths(1l));
+		else //테스트용으로 오늘꺼불러오기
+			accountList = netflixAccountRepository.findByStartDate(LocalDate.now());
 				
 		//그 그룹들에 해당하는 회원들 다 불러오기
 		List<NetflixAccountUserRelationshipEntity> allUsers = new LinkedList<NetflixAccountUserRelationshipEntity>();
@@ -103,9 +104,30 @@ public class SchedulingServiceImpl implements SchedulingService{
 
 			user.setId(changedUser.getUserId());
 			NetflixAccountEntity account = netflixAccountService.getUsersAccount(user);
-			String body = "Email address : " + account.getEmail() + " \nPassword : " + account.getPassword();
+			String body = "<div style=\"background-color: black; align-content: center;\">\n" + 
+					"<div align=\"center\">\n" + 
+					"	<img src=\"https://lh3.googleusercontent.com/HBVtGFIOgppmhAFcLCr41znBXJScF8OlgRfTdqiLL5NV6b48EmR9zfleS1uwQdlXr9w\">\n" + 
+					"	<h1 style=\"color: white\">이제 조금 남았습니다..!</h1>\n" + 
+					"	<h3 style=\"color: white\">아래 계정으로 사이트에 로그인 하시면 됩니다.</h3>\n" + 
+					"	<h3 style=\"color: white\">요금은 매월 결제일마다 자동으로 청구됩니다.</h3>\n" + 
+					"\n" + 
+					"	<table style=\"background-color: white; width: 300px; border: 1px solid black\">\n" + 
+					"		<tbody>\n" + 
+					"			<tr style=\"border: 1px solid black\">\n" + 
+					"				<td style=\"border: 1px solid black\">Email</td>\n" + 
+					String.format("				<td style=\"border: 1px solid black\">%s</td>\n",account.getEmail()) + 
+					"			</tr>\n" + 
+					"			<tr style=\"border: 1px solid black\">\n" + 
+					"				<td style=\"border: 1px solid black\">Password</td>\n" + 
+					String.format("				<td style=\"border: 1px solid black\">%s</td>\n",account.getPassword()) + 
+					"			</tr>\n" + 
+					"		</tbody>\n" + 
+					"	</table>\n" + 
+					"</div>\n" + 
+					"</div>";
 			emailSender.setSUBJECT("4Flix : Your Account!");
 			emailSender.setTEXTBODY(body);
+			emailSender.setHTMLBODY(body);
 			emailSender.setTO(emailSender.getFROM());
 			try {
 				emailSender.sendEmail();
