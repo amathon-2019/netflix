@@ -14,6 +14,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Autowired 
 	private JwtService jwtService;
 	
+	//요청시에 토큰 검증 후 실패하면 바로 에러 반환
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		try {

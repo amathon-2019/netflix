@@ -25,8 +25,10 @@ public class UserController {
 	public String login(@RequestBody UserEntity userEntity, HttpServletResponse response) throws Exception{
 		Map<String, Object> result = userService.login(userEntity);
 		//로그인 실패
-		if (result==null) 
-			throw new Exception();
+		if (result==null) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return null;
+		}
 		
 		response.setStatus(HttpServletResponse.SC_ACCEPTED);
 		return new ObjectMapper().writeValueAsString(result);
@@ -36,8 +38,10 @@ public class UserController {
 	@RequestMapping(value="/regist", method=RequestMethod.POST)
 	public String regist(@RequestBody UserEntity userEntity, HttpServletResponse response) throws Exception{
 		UserEntity user = userService.regist(userEntity);
-		if (user==null)
-			throw new Exception();
+		if (user==null) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return null;
+		}
 		
 		response.setStatus(HttpServletResponse.SC_ACCEPTED);
 		return new ObjectMapper().writeValueAsString(user);
