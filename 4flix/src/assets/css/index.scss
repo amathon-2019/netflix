@@ -1,2 +1,37 @@
 $background-color: #000;
 $main-color: #e50914;
+$main-color__focus: #830007;
+$main-color__hover: #ff202c;
+
+$sub-color: gray;
+$sub-color__focus: rgb(90, 90, 90);
+$sub-color__hover: rgb(163, 163, 163);
+
+@mixin makeButton($main, $focus, $hover) {
+  background-color: $main;
+  color: white;
+  border: 1px solid $main;
+  &:focus {
+    background-color: $focus;
+    color: white;
+    border: 1px solid $focus;
+  }
+  &:hover {
+    background-color: $hover;
+    color: white;
+    border: 1px solid $hover;
+  }
+  &:active {
+    background-color: $focus;
+    color: white;
+    border: 1px solid $focus;
+  }
+}
+
+.el-button {
+  @include makeButton($main-color, $main-color__focus, $main-color__hover);
+}
+
+.el-button.gray {
+  @include makeButton($sub-color, $sub-color__focus, $sub-color__hover);
+}

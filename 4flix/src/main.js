@@ -13,6 +13,7 @@ locale.use(lang);
 // components
 import { Button, Input } from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+
 Vue.component(Button.name, Button);
 Vue.component(Input.name, Input);
 
