@@ -38,9 +38,7 @@ export default {
 };
 </script>
 <style lang="scss">
-* {
-  background-color: #000000;
-}
+
 .signup {
   .email-wrapper {
     display: flex;
