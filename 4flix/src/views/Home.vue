@@ -41,6 +41,7 @@ export default {
     margin:auto;
     flex-direction: column;
     width:70%;
+    max-width:800px;
     .el-button{
       margin-bottom:10px;
     }

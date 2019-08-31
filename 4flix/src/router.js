@@ -22,7 +22,7 @@ export default new Router({
     {
       path: "/mypage",
       name: "mypage",
-      components: () => import("./views/MyPage")
+      component: () => import("./views/MyPage")
     }
   ]
 });
