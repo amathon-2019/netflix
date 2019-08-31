@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import Navigation from './components/Navigation/Navigation';
+import Navigation from "./components/Navigation/Navigation";
 export default {
   components: {
     navigation: Navigation
@@ -23,7 +23,7 @@ body {
   height: 100%;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
