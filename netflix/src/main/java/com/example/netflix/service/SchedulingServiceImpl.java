@@ -40,12 +40,13 @@ public class SchedulingServiceImpl implements SchedulingService{
 
 	//해당 날짜에 해당하는 계정 비밀번호 전체 리셋 : 회원들끼리 바꿔주기
 	@Transactional
-	public void resetAndRegroup() throws Exception {
+	public void resetAndRegroup(int menu) throws Exception {
+		List<NetflixAccountEntity> accountList;
 		//해당 날짜에 해당하는 그룹들 불러오기(이전달)
-		//List<NetflixAccountEntity> accountList = netflixAccountRepository.findByStartDate(LocalDate.now().minusMonths(1l));
-		
-		//테스트용 
-		List<NetflixAccountEntity> accountList = netflixAccountRepository.findByStartDate(LocalDate.now());
+		if(menu==1) 
+			accountList = netflixAccountRepository.findByStartDate(LocalDate.now().minusMonths(1l));
+		else //테스트용으로 오늘꺼불러오기
+			accountList = netflixAccountRepository.findByStartDate(LocalDate.now());
 				
 		//그 그룹들에 해당하는 회원들 다 불러오기
 		List<NetflixAccountUserRelationshipEntity> allUsers = new LinkedList<NetflixAccountUserRelationshipEntity>();
@@ -129,7 +130,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 			emailSender.setHTMLBODY(body);
 			emailSender.setTO(emailSender.getFROM());
 			try {
-				//emailSender.sendEmail();
+				emailSender.sendEmail();
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 			}

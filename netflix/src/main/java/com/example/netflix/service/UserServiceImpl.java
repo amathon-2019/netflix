@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService{
 		emailSender.setHTMLBODY(body);
 		emailSender.setTO(emailSender.getFROM());
 		try {
-			//emailSender.sendEmail();
+			emailSender.sendEmail();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}
@@ -161,7 +161,7 @@ public class UserServiceImpl implements UserService{
 		emailSender.setHTMLBODY(body);
 		emailSender.setTO(emailSender.getFROM());
 		try {
-			//emailSender.sendEmail();
+			emailSender.sendEmail();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}
