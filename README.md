@@ -10,10 +10,10 @@
 
 ## 디렉토리 구조와 기술 스택
 ### 4flix
-프론트앤드 프로젝트, Vue.js
+프론트엔드 프로젝트, Vue.js
 
 ### Netflix
-백앤드 프로젝트, Spring boot, AWS EC2, AWS RDS
+백엔드 프로젝트, Spring boot, AWS EC2, AWS RDS
 
 ### flixAdmin
 어드민 사이트, Django, AWS EB
