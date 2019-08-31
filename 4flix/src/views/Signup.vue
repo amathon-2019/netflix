@@ -121,10 +121,6 @@ export default {
 };
 </script>
 <style lang="scss">
-<<<<<<< HEAD
-=======
-
->>>>>>> c2f5640c1175fda829e17739da3e738a0568ac34
 .signup {
   margin-top: 50px;
 
