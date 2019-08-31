@@ -11,7 +11,9 @@
       </vue-glide-slide>
     </vue-glide>
     <div class="home-form">
-      <el-button>로그인</el-button>
+      <el-input placeholder="아이디" v-model="email"></el-input>
+      <el-input placeholder="비밀번호" v-model="password"></el-input>
+      <el-button @click="login">로그인</el-button>
       <el-button class="gray">회원가입</el-button>
     </div>
   </div>
@@ -27,6 +29,8 @@ export default {
     return {
       slideImg,
       glideOption: { perView: 1, autoplay: 3000 },
+      email: '',
+      password: '',
       slideOption: [
         '4FLIX 커뮤니티는 한국 넷플릭스 사용자 커뮤니티입니다.',
         '4FLIX는 한 달마다 새로운 사용자들과 매칭시켜드립니다.',
@@ -41,14 +45,11 @@ export default {
     [Glide.name]: Glide,
     [GlideSlide.name]: GlideSlide
   },
-  mounted() {
-    this.$axios
-      .post('/login', { email: 'user1@a.a', password: '1234' })
-      .then(res => console.log(res));
+  methods: {
+    login() {}
   }
 };
 </script>
-
 
 <style lang='scss' scoped>
 @import '@/assets/css/index.scss';
