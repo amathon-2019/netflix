@@ -27,10 +27,16 @@ public class UserServiceImpl implements UserService{
 	NetflixAccountUserRelationshipService netflixAccountUserRelationshipService;
 	
 	@Autowired
+	NetflixAccountService netflixAccountService;
+	
+	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	JwtService jwtService;
+	
+	@Autowired
+	EmailSender emailSender;
 
 
 	// 이메일, 비밀번호 받아서 암호화 후 저장. 이미 존재하는 이메일이거나 실패하면 return null, 아니면 Entity 리턴
@@ -84,31 +90,44 @@ public class UserServiceImpl implements UserService{
 		int randomIndex;
 		NetflixAccountEntity selectedEntity;
 		
-		for (int i=3 ; i>=1 ; i--) {
+		int i;
+		for (i=3 ; i>=1 ; i--) {
 			//날짜가 오늘날짜여야 함
 			accountList = netflixAccountRepository.findByPeopleCountAndStartDate(i, LocalDate.now());
-			System.out.println("i==" + i);
-			System.out.println(accountList);
 			if (accountList==null || accountList.size()<=0)
 				continue;
 			randomIndex = (int)(Math.random()*(accountList.size()));
 			selectedEntity = accountList.get(randomIndex);
-			System.out.println(selectedEntity);
 			
 			//랜덤으로 찾은 계정에 인원 할당
 			//relationship 추가
 			netflixAccountUserRelationshipService.makeRelationship(selectedEntity, userEntity);
 			
-			return;
+			break;
 		} 
-		System.out.println("no");
-		//날짜가 없으므로 비어있는거중에 할당시켜 줘야 함
-		NetflixAccountEntity netflixAccount = netflixAccountRepository.findByPeopleCount(0).get(0);
-		netflixAccount.setStartDate(LocalDate.now());
-		netflixAccountRepository.save(netflixAccount);
-		netflixAccountUserRelationshipService.makeRelationship(netflixAccount, userEntity);
+		if (i<=0) {
+			//날짜가 없으므로 비어있는거중에 할당시켜 줘야 함
+			//사람 0인거 찾아서
+			NetflixAccountEntity netflixAccount = netflixAccountRepository.findByPeopleCount(0).get(0);
+			//시작시간 고정 해주고
+			netflixAccount.setStartDate(LocalDate.now());
+			//저장
+			netflixAccountRepository.save(netflixAccount);
+			//relationship 맺어주기
+			netflixAccountUserRelationshipService.makeRelationship(netflixAccount, userEntity);
+		}
 		
 		//TODO 유저에게 계정 정보 이메일로 보내주기
+		NetflixAccountEntity account = netflixAccountService.getUsersAccount(userEntity);
+		String body = "Email address : " + account.getEmail() + " \nPassword : " + account.getPassword();
+		emailSender.setSUBJECT("4Flix : Your Account!");;
+		emailSender.setTEXTBODY(body);
+		emailSender.setTO(emailSender.FROM);
+		try {
+			emailSender.sendEmail();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+		}
 
 	}
 	

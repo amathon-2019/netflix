@@ -32,8 +32,6 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 			return null;
 		}
 		netflixAccountEntity.setStartDate(LocalDate.now());
-		System.out.println("!@#!@#");
-		System.out.println(netflixAccountEntity.getStartDate());
 		netflixAccountEntity.setPassword(passwordFactory.getPassword());
 		NetflixAccountEntity savedAccount = netflixAccountRepository.save(netflixAccountEntity); //저장완료
 		

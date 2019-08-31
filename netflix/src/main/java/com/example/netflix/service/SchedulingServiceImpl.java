@@ -67,13 +67,15 @@ public class SchedulingServiceImpl implements SchedulingService{
 		UserEntity user;
 		
 		while (accountIterator.hasNext()) {
+			//그룹 하나 꺼내서
 			group = accountIterator.next();
+			//4명씩 채워준다
 			for (int i=0 ; i<4 ; i++) {
 				if (usersIterator.hasNext()) {
 					user = new UserEntity();
 					user.setId(usersIterator.next().getUserId());
 					netflixAccountUserRelationshipService.makeRelationship(group, user);
-				} else 
+				} else //더이상 사람 남아있지 않으면
 					break;
 			}
 			if (!usersIterator.hasNext())
