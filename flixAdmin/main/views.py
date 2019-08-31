@@ -24,19 +24,13 @@ def adminPage(request):
     userCnt = User.objects.count()
     party = Account.objects.filter()
     partyCnt = party.count()
-    avgMember = int(userCnt/partyCnt)
+    avgMember = round(userCnt/partyCnt, 4)
     relationCnt = Accountuserrelationship.objects.count()
 
     return render(request, 'index.html', {'userCnt':userCnt, 'partyCnt':partyCnt, 'avgMember':avgMember,
                                           'relationCnt':relationCnt, 'object_list':party})
 
 def partyView(request, id):
-    object_list = Accountuserrelationship.objects.filter(id=id)
-    userCnt = User.objects.count()
-    party = Account.objects.filter()
-    partyCnt = party.count()
-    avgMember = int(userCnt/partyCnt)
-    relationCnt = Accountuserrelationship.objects.count()
+    relation = Accountuserrelationship.objects.filter(account_id=id)
 
-    return render(request, 'index.html', {'userCnt': userCnt, 'partyCnt': partyCnt, 'avgMember': avgMember,
-                                          'relationCnt': relationCnt, 'object_list': object_list})
+    return render(request, 'relationView.html', {'relation': relation})
