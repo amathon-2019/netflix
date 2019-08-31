@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService{
 
 	// 이메일, 비밀번호 받아서 암호화 후 저장. 이미 존재하는 이메일이거나 실패하면 return null, 아니면 Entity 리턴
 	@Override
-	public UserEntity regist(UserEntity userEntity) {
+	public UserEntity regist(UserEntity userEntity) throws Exception {
 		boolean available = userRepository.existsByEmail(userEntity.getEmail()); //이메일이 존재하면 true가 리턴됨
 		if (available) {
 			//이미 존재하는 이름이므로 실패
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService{
 
 	//결제
 	@Override
-	public void pay(UserEntity userEntity) {
+	public void pay(UserEntity userEntity) throws Exception{
 		UserEntity findedEntity = userRepository.findById(userEntity.getId());
 		findedEntity.setPayed(true);
 		userRepository.save(findedEntity);
@@ -120,15 +120,35 @@ public class UserServiceImpl implements UserService{
 		//TODO 유저에게 계정 정보 이메일로 보내주기
 		NetflixAccountEntity account = netflixAccountService.getUsersAccount(userEntity);
 		String body = "Email address : " + account.getEmail() + " \nPassword : " + account.getPassword();
-		emailSender.setSUBJECT("4Flix : Your Account!");;
+		emailSender.setSUBJECT("4Flix : Your Account!");
 		emailSender.setTEXTBODY(body);
-		emailSender.setTO(emailSender.FROM);
+		emailSender.setTO(emailSender.getFROM());
 		try {
 			emailSender.sendEmail();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}
 
+	}
+
+	@Override
+	public UserEntity changePassword(UserEntity userEntity) throws Exception{
+		//아이디로 찾기
+		UserEntity findedUser = userRepository.findById(userEntity.getId());
+		
+		//새로운 비밀번호
+		findedUser.setPassword(passwordEncoder.encode(userEntity.getPassword())); //패스워드 암호화
+		UserEntity savedUser = userRepository.save(findedUser); //저장완료
+		savedUser.setPassword(""); //비밀번호 숨기기
+
+		return savedUser;
+	}
+
+	@Override
+	public void cancelPay(UserEntity userEntity) throws Exception {
+		UserEntity findedUser = userRepository.findById(userEntity.getId());
+		findedUser.setPayed(false);
+		userRepository.save(findedUser);
 	}
 	
 
