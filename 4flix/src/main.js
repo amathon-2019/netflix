@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import axios from "./utill/axios";
+Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
 // element-ui config
@@ -12,6 +14,8 @@ import locale from "element-ui/lib/locale";
 locale.use(lang);
 // components
 import { Button, Input } from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+
 Vue.component(Button.name, Button);
 Vue.component(Input.name, Input);
 

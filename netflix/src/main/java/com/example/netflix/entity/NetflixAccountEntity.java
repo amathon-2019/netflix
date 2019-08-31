@@ -1,5 +1,7 @@
 package com.example.netflix.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +13,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="user")
+@Table(name="account")
 @NoArgsConstructor
 @Data
-public class UserEntity {
+public class NetflixAccountEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -26,6 +28,8 @@ public class UserEntity {
 	private String password;
 	
 	@Column
-	private boolean isPayed;
+	private int peopleCount;
 
+	@Column
+	private LocalDate startDate;
 }
