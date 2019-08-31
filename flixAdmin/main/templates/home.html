@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>4Flix Admin Site</title>
+</head>
+<body>
+    <h1>4FLIX ADMIN</h1>
+    <p>{{error}}</p>
+    <form method="POST" action="{% url 'loginProc' %}">
+        {%csrf_token%}
+        <input type="text" name="username" class="form-control" placeholder="username">
+        <input type="password" name="password" class="form-control" placeholder="password">
+        <input type="submit" value="Login" class="btn float-right login_btn">
+    </form>
+</body>
+</html>
