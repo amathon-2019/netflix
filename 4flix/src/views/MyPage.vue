@@ -81,18 +81,24 @@ export default {
             })
               .then(res => {
                 console.log(res);
-                this.netflixEmail = res.data.email;
-                this.netflixPw = res.data.password;
-                if (res.status == 202) {
-                  var msg = '결제가 완료되었습니다.';
-                  msg += '\n고유ID : ' + rsp.imp_uid;
-                  msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-                  msg += '\n결제 금액 : ' + rsp.paid_amount;
-                  alert(msg);
-                } else {
-                  //[3] 아직 제대로 결제가 되지 않았습니다.
-                  //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-                }
+                console.log(rsp);
+                var msg = '결제가 완료되었습니다.';
+                msg += '\n고유ID : ' + rsp.imp_uid;
+                msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                msg += '\n결제 금액 : ' + rsp.paid_amount;
+                alert(msg);
+                return res.data;
+              })
+              .catch(err => {
+                console.log(err);
+                alert('이미결제되었습니다.');
+              })
+              .then(res => {
+                console.log(this);
+                console.log(res);
+                this.$store.commit('setPayed', true);
+                this.netflixEmail = res.email;
+                this.netflixPw = res.password;
               })
               .catch(err => console.log(err));
           } else {
@@ -107,6 +113,20 @@ export default {
   },
   mounted() {
     IMP.init('imp52759429');
+    const user = this.getUser;
+    if (this.getPayed) {
+      this.$axios
+        .post('/account', { id: user.id })
+        .then(res => {
+          this.netflixEmail = res.data.email;
+          this.netflixPw = res.data.password;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  },
+  updated() {
     const user = this.getUser;
     if (this.getPayed) {
       this.$axios

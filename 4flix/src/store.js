@@ -25,6 +25,9 @@ export default new Vuex.Store({
     },
     setToken(state, payload) {
       state.token = payload;
+    },
+    setPayed(state,payload){
+      state.userData.payed = payload
     }
   },
   actions: {
