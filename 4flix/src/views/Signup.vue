@@ -57,9 +57,8 @@
       
     </div>
     <div class="signup-button">
-        <el-button>회원가입 완료</el-button>
+        <el-button @click="signup">회원가입 완료</el-button>
     </div>
-    
   </div>
 </template>
 
@@ -113,10 +112,20 @@ export default {
     }
   },
   methods: {
-    // validate() {
-    //   let result = validationResult;
-    //   let email = this.email;
-    // }
+    signup() {
+      this.$axios
+        .post("/regist", {
+          email: this.email,
+          password: this.password
+        })
+        .then(res => {
+          alert("회원가입이 완료되었습니다.");
+          this.$router.push({ name: "home" });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }
 };
 </script>
