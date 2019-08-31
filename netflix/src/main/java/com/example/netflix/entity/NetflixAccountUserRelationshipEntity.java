@@ -11,21 +11,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="user")
+@Table(name="accountuserrelationship")
 @NoArgsConstructor
 @Data
-public class UserEntity {
+public class NetflixAccountUserRelationshipEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	@Column
-	private String email;
+	private long accountId;
 			
 	@Column
-	private String password;
-	
-	@Column
-	private boolean isPayed;
+	private long userId;
 
 }
