@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="netflix/.mvn/wrapper"/>
+	<classpathentry kind="src" path="netflix/src/main/java"/>
+	<classpathentry kind="src" path="netflix/src/test/java"/>
+	<classpathentry kind="lib" path="netflix/bin/.mvn/wrapper/maven-wrapper.jar"/>
+	<classpathentry kind="output" path="netflix/target/classes"/>
+</classpath>
