@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     signup() {
-      if (this.email && this.password) {
+      if (this.isCorrectEmail && this.isCorrectPassword && this.isConfirmed) {
         this.$axios
           .post("/regist", {
             email: this.email,
