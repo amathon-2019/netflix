@@ -47,7 +47,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 		
 		
 		for(NetflixAccountEntity account : accountList) {
-			//비밀번호 변경 
+			//비밀번호 변경 && 오늘날짜로 바꿔주기
 			netflixAccountService.changePassword(account);
 			//사람들 모아서 추가
 			tempUsers = netflixAccountUserRelationshipRepository.findByAccountId(account.getId());

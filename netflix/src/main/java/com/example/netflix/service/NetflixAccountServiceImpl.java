@@ -54,8 +54,9 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 		if (findedAccount == null)
 			return null;
 		
-		//비밀번호 변경 (랜덤으로)
+		//비밀번호 변경 (랜덤으로) && 날짜 오늘로 바꾸기
 		findedAccount.setPassword(passwordFactory.getPassword());
+		findedAccount.setStartDate(LocalDate.now());
 		netflixAccountRepository.save(findedAccount);
 		
 		return findedAccount;
