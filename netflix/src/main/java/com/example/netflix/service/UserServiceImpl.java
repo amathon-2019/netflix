@@ -45,6 +45,9 @@ public class UserServiceImpl implements UserService{
 		UserEntity savedUser = userRepository.save(userEntity); //저장완료
 		savedUser.setPassword(""); //비밀번호 숨기기
 		
+		//TODO 회원가입 이메일 보내주기
+		
+		
 		return savedUser;
 	}
 
@@ -97,12 +100,15 @@ public class UserServiceImpl implements UserService{
 			netflixAccountUserRelationshipService.makeRelationship(selectedEntity, userEntity);
 			
 			return;
-		}
+		} 
 		System.out.println("no");
 		//날짜가 없으므로 비어있는거중에 할당시켜 줘야 함
 		NetflixAccountEntity netflixAccount = netflixAccountRepository.findByPeopleCount(0).get(0);
 		netflixAccount.setStartDate(LocalDate.now());
+		netflixAccountRepository.save(netflixAccount);
 		netflixAccountUserRelationshipService.makeRelationship(netflixAccount, userEntity);
+		
+		//TODO 유저에게 계정 정보 이메일로 보내주기
 
 	}
 	
