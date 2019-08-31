@@ -86,13 +86,16 @@ export default {
         this.isCorrectEmail = true;
         this.emailValidationResult = "올바른 이메일 형식입니다.";
       } else {
+        this.isCorrectEmail = false;
         this.emailValidationResult = "이메일 형식이 올바르지 않습니다.";
       }
     },
     password: function(password) {
       if (password.length > 0 && password.length < 10) {
+        this.isCorrectPassword = false;
         this.passwordValidationResult = "비밀번호가 너무 짧습니다.";
       } else if (password.length > 10) {
+        this.isCorrectPassword = false;
         alert("10글자 미만으로 입력해주세요");
       } else {
         this.isCorrectPassword = true;
@@ -104,6 +107,7 @@ export default {
         this.isConfirmed = true;
         this.confirmPassword = "비밀번호가 일치합니다.";
       } else {
+        this.isConfirmed = false;
         this.confirmPassword = "비밀번호가 일치하지 않습니다.";
       }
     }
@@ -169,6 +173,9 @@ export default {
     border-radius: 4px;
     background-color: #333333;
     color: #ffffff;
+  }
+  .el-input__clear {
+    margin-right: 40px;
   }
 }
 </style>
