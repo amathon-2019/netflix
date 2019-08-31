@@ -123,7 +123,10 @@ export default {
           this.$router.push({ name: "home" });
         })
         .catch(e => {
-          console.log(e);
+          if ((e.message = "Request failed with status code 500")) {
+            alert("이미 가입된 이메일입니다.");
+            this.$router.push({ name: "home" });
+          }
         });
     }
   }
