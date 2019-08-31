@@ -1,12 +1,24 @@
 package com.example.netflix.service;
 
+import java.io.IOException;
+
+import org.springframework.stereotype.Component;
+
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
-import com.amazonaws.services.simpleemail.model.*;
+import com.amazonaws.services.simpleemail.model.Body;
+import com.amazonaws.services.simpleemail.model.Content;
+import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.Message;
+import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 
-import java.io.IOException;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Component
+@NoArgsConstructor
+@Data
 public class EmailSender {
 
     static final String FROM = "giopaik@naver.com";
