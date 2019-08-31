@@ -13,3 +13,13 @@ public class NetflixApplication {
 	}
 
 }
+
+/*
+spring.datasource.url=jdbc:mysql://13.124.122.246:3306/netflix?useUnicode=true&zeroDateTimeBehavior=CONVERT_TO_NULL&characterEncoding=utf8&useSSL=false
+spring.datasource.username=netflix
+spring.datasource.password=1234
+spring.jpa.hibernate.ddl-auto=update
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+*/

@@ -12,7 +12,7 @@
     </vue-glide>
     <div class="home-form">
       <div class="home-form-container" v-if="!getUser">
-        <el-input placeholder="아이디" v-model="email"></el-input>
+        <el-input placeholder="이메일" v-model="email"></el-input>
         <el-input placeholder="비밀번호" v-model="password" show-password></el-input>
         <el-button @click="login" v-text="isLoading?'loading...':'로그인'"></el-button>
         <el-button @click="goSignUp" class="gray" v-text="'회원가입'"></el-button>
@@ -26,44 +26,44 @@
 </template>
 
 <script>
-import { Glide, GlideSlide } from 'vue-glide-js';
-import 'vue-glide-js/dist/vue-glide.css';
+import { Glide, GlideSlide } from "vue-glide-js";
+import "vue-glide-js/dist/vue-glide.css";
 const slideImg = require(`@/assets/image/slide.png`);
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
-  name: 'home',
+  name: "home",
   data() {
     return {
       slideImg,
       glideOption: { perView: 1, autoplay: 3000 },
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       isLoading: false,
       slideOption: [
-        '4FLIX 커뮤니티는 한국 넷플릭스 사용자 커뮤니티입니다.',
-        '4FLIX는 한 달마다 새로운 사용자들과 매칭시켜드립니다.',
-        '기존의 서비스에 비해 프라이버시가 보장됩니다.',
-        '4FLIX 커뮤니티는 한국 넷플릭스 사용자 커뮤니티입니다.',
-        '4FLIX는 한 달마다 새로운 사용자들과 매칭시켜드립니다.',
-        '기존의 서비스에 비해 프라이버시가 보장됩니다.'
+        "4FLIX 커뮤니티는 한국 넷플릭스 사용자 커뮤니티입니다.",
+        "4FLIX는 한 달마다 새로운 사용자들과 매칭시켜드립니다.",
+        "기존의 서비스에 비해 프라이버시가 보장됩니다.",
+        "4FLIX 커뮤니티는 한국 넷플릭스 사용자 커뮤니티입니다.",
+        "4FLIX는 한 달마다 새로운 사용자들과 매칭시켜드립니다.",
+        "기존의 서비스에 비해 프라이버시가 보장됩니다."
       ]
     };
   },
   watch: {
     getUser(val, oldVal) {
-      console.log('hi', val);
+      console.log("hi", val);
       return val;
     }
   },
   computed: {
     mainButtonText() {
       if (this.getUser) {
-        return '마이페이지';
+        return "마이페이지";
       } else {
-        return '로그인';
+        return "로그인";
       }
     },
-    ...mapGetters(['getUser'])
+    ...mapGetters(["getUser"])
   },
   components: {
     [Glide.name]: Glide,
@@ -71,21 +71,21 @@ export default {
   },
   methods: {
     goMyPage() {
-      this.$router.push({ name: 'mypage' });
+      this.$router.push({ name: "mypage" });
     },
     goSignUp() {
-      this.$router.push({ name: 'signup' });
+      this.$router.push({ name: "signup" });
     },
     login() {
       this.isLoading = true;
       setTimeout(this.signup, 1000);
     },
     logout() {
-      this.$store.dispatch('logout');
+      this.$store.dispatch("logout");
     },
     signup() {
       this.$store
-        .dispatch('login', {
+        .dispatch("login", {
           email: this.email,
           password: this.password
         })
@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import '@/assets/css/index.scss';
+@import "@/assets/css/index.scss";
 .home {
   position: relative;
   .slide-text {

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class EmailSender {
 
-    static final String FROM = "giopaik@naver.com";
+    private String FROM = "giopaik@naver.com";
     private String TO;
     private String SUBJECT;
     // The HTML body for the email.

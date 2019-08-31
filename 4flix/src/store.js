@@ -35,7 +35,9 @@ export default new Vuex.Store({
       axios.post("/login", payload).then(res => {
         commit("setUser", res.data.user);
         commit("setToken", res.data.token);
-      });
+      }).catch(e => {
+        alert('이메일 또는 비밀번호가 틀렸습니다.')
+      })
     },
     logout({ commit }) {
       commit("setUser", false);

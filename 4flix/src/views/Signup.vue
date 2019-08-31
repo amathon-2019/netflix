@@ -113,21 +113,25 @@ export default {
   },
   methods: {
     signup() {
-      this.$axios
-        .post("/regist", {
-          email: this.email,
-          password: this.password
-        })
-        .then(res => {
-          alert("회원가입이 완료되었습니다.");
-          this.$router.push({ name: "home" });
-        })
-        .catch(e => {
-          if ((e.message = "Request failed with status code 500")) {
-            alert("이미 가입된 이메일입니다.");
+      if (this.isCorrectEmail && this.isCorrectPassword && this.isConfirmed) {
+        this.$axios
+          .post("/regist", {
+            email: this.email,
+            password: this.password
+          })
+          .then(res => {
+            alert("회원가입이 완료되었습니다.");
             this.$router.push({ name: "home" });
-          }
-        });
+          })
+          .catch(e => {
+            if ((e.message = "Request failed with status code 500")) {
+              alert("이미 가입된 이메일입니다.");
+              this.$router.push({ name: "home" });
+            }
+          });
+      } else {
+        alert("이메일과 비밀번호를 모두 입력해주세요!");
+      }
     }
   }
 };

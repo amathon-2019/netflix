@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class PasswordFactory {
 
 	private char getCharacter() {
-		return (char)('a'+(int)(Math.random()*27));
+		return (char)('a'+(int)(Math.random()*26));
 	}
 	
 	private int getInteger() {
