@@ -82,6 +82,7 @@ public class UserServiceImpl implements UserService{
 	public void pay(UserEntity userEntity) throws Exception{
 		UserEntity findedEntity = userRepository.findById(userEntity.getId());
 		findedEntity.setPayed(true);
+		findedEntity.setPgTID(userEntity.getPgTID());
 		userRepository.save(findedEntity);
 		
 		//결제 했으니까 이제 계정 배정 해주어야 함
@@ -148,6 +149,7 @@ public class UserServiceImpl implements UserService{
 	public void cancelPay(UserEntity userEntity) throws Exception {
 		UserEntity findedUser = userRepository.findById(userEntity.getId());
 		findedUser.setPayed(false);
+		findedUser.setPgTID("");
 		userRepository.save(findedUser);
 	}
 	

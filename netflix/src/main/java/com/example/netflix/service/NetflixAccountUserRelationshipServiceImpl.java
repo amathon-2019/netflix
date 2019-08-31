@@ -49,7 +49,7 @@ public class NetflixAccountUserRelationshipServiceImpl implements NetflixAccount
 
 	}
 
-	//해당 계정에 할당된 모든 relstionship 삭제
+	//해당 계정에 할당된 모든 relationship 삭제
 	@Override
 	public void resetAccount(NetflixAccountEntity netflixAccountEntity) throws Exception {
 		//relationship 전체 삭제
