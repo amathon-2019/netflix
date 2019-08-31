@@ -52,7 +52,22 @@ public class UserServiceImpl implements UserService{
 		savedUser.setPassword(""); //비밀번호 숨기기
 		
 		//TODO 회원가입 이메일 보내주기
-		
+		String body = "<div style=\"background-color: black; align-content: center;\">\n" + 
+				"<div align=\"center\">\n" + 
+				"	<img src=\"https://lh3.googleusercontent.com/HBVtGFIOgppmhAFcLCr41znBXJScF8OlgRfTdqiLL5NV6b48EmR9zfleS1uwQdlXr9w\">\n" + 
+				"	<h1 style=\"color: white\">4Flix에 가입하신 것을 환영합니다!</h1>\n" + 
+				"	<h3 style=\"color: white\">앞으로 안심하시고 계정공유 서비스를 누리시기 바랍니다.</h3>\n" + 
+				"</div>\n" + 
+				"</div>";
+		emailSender.setSUBJECT("Welcome To 4FLIX!");
+		emailSender.setTEXTBODY(body);
+		emailSender.setHTMLBODY(body);
+		emailSender.setTO(emailSender.getFROM());
+		try {
+			//emailSender.sendEmail();
+		} catch (Exception e) {
+			e.printStackTrace(System.out);
+		}
 		
 		return savedUser;
 	}
@@ -120,12 +135,33 @@ public class UserServiceImpl implements UserService{
 		
 		//TODO 유저에게 계정 정보 이메일로 보내주기
 		NetflixAccountEntity account = netflixAccountService.getUsersAccount(userEntity);
-		String body = "Email address : " + account.getEmail() + " \nPassword : " + account.getPassword();
+		String body = "<div style=\"background-color: black; align-content: center;\">\n" + 
+				"<div align=\"center\">\n" + 
+				"	<img src=\"https://lh3.googleusercontent.com/HBVtGFIOgppmhAFcLCr41znBXJScF8OlgRfTdqiLL5NV6b48EmR9zfleS1uwQdlXr9w\">\n" + 
+				"	<h1 style=\"color: white\">이제 조금 남았습니다..!</h1>\n" + 
+				"	<h3 style=\"color: white\">아래 계정으로 사이트에 로그인 하시면 됩니다.</h3>\n" + 
+				"	<h3 style=\"color: white\">요금은 매월 결제일마다 자동으로 청구됩니다.</h3>\n" + 
+				"\n" + 
+				"	<table style=\"background-color: white; width: 300px; border: 1px solid black\">\n" + 
+				"		<tbody>\n" + 
+				"			<tr style=\"border: 1px solid black\">\n" + 
+				"				<td style=\"border: 1px solid black\">Email</td>\n" + 
+				String.format("				<td style=\"border: 1px solid black\">%s</td>\n",account.getEmail()) + 
+				"			</tr>\n" + 
+				"			<tr style=\"border: 1px solid black\">\n" + 
+				"				<td style=\"border: 1px solid black\">Password</td>\n" + 
+				String.format("				<td style=\"border: 1px solid black\">%s</td>\n",account.getPassword()) + 
+				"			</tr>\n" + 
+				"		</tbody>\n" + 
+				"	</table>\n" + 
+				"</div>\n" + 
+				"</div>";
 		emailSender.setSUBJECT("4Flix : Your Account!");
 		emailSender.setTEXTBODY(body);
+		emailSender.setHTMLBODY(body);
 		emailSender.setTO(emailSender.getFROM());
 		try {
-			emailSender.sendEmail();
+			//emailSender.sendEmail();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}
