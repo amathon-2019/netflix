@@ -18,6 +18,10 @@
 ### flixAdmin
 어드민 사이트, Django, AWS EB
 
+## Screenshots 
+<img src="https://github.com/amathon-2019/netflix/blob/master/screenshot/2.png?raw=true" height=500/> <img src="https://github.com/amathon-2019/netflix/blob/master/screenshot/1.png?raw=true" height=500/>
+<img src="https://github.com/amathon-2019/netflix/blob/master/screenshot/3.png?raw=true" height=400/>
+
 ## Video
 [Click!](https://youtu.be/a_HFsW8PTns)
 
