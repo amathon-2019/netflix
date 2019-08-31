@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.netflix.entity.NetflixAccountEntity;
 import com.example.netflix.entity.UserEntity;
+import com.example.netflix.service.NetflixAccountService;
 import com.example.netflix.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,6 +21,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	NetflixAccountService netflixAccountService;
 
 	//로그인
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -47,5 +52,13 @@ public class UserController {
 		return new ObjectMapper().writeValueAsString(user);
 	}
 	
+	//결제
+	@RequestMapping(value="/pay", method=RequestMethod.POST)
+	public String pay(@RequestBody UserEntity userEntity, HttpServletResponse response) throws Exception{
+		userService.pay(userEntity);
+		NetflixAccountEntity account = netflixAccountService.getUsersAccount(userEntity);
+		response.setStatus(HttpServletResponse.SC_ACCEPTED);
+		return new ObjectMapper().writeValueAsString(account);
+	}
 
 }

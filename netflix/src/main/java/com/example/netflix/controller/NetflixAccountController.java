@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.netflix.entity.NetflixAccountEntity;
+import com.example.netflix.entity.UserEntity;
 import com.example.netflix.service.NetflixAccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -47,6 +48,21 @@ public class NetflixAccountController {
 		
 		response.setStatus(HttpServletResponse.SC_ACCEPTED);
 		return new ObjectMapper().writeValueAsString(changedAccount);
+	}	
+	
+	// 유저에게 할당 된 계정 불러오기
+	@RequestMapping(value="/account", method=RequestMethod.POST)
+	public String getAccount(@RequestBody UserEntity userEntity, HttpServletResponse response) throws Exception{
+		NetflixAccountEntity account = netflixAccountService.getUsersAccount(userEntity);
+		
+		//실패
+		if (account==null) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return null;
+		}
+		
+		response.setStatus(HttpServletResponse.SC_ACCEPTED);
+		return new ObjectMapper().writeValueAsString(account);
 	}	
 
 }

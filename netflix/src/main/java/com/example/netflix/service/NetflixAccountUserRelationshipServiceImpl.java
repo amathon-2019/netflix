@@ -49,4 +49,16 @@ public class NetflixAccountUserRelationshipServiceImpl implements NetflixAccount
 
 	}
 
+	//해당 계정에 할당된 모든 relstionship 삭제
+	@Override
+	public void resetAccount(NetflixAccountEntity netflixAccountEntity) {
+		//relationship 전체 삭제
+		netflixAccountUserRelationshipRepository.deleteByAccountId(netflixAccountEntity.getId());
+		//할당된 회원 0명으로 저장
+		netflixAccountEntity.setPeopleCount(0);
+		netflixAccountRepository.save(netflixAccountEntity);
+		
+	}
+
+	
 }

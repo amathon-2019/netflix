@@ -19,10 +19,10 @@ public class NetflixAccountUserRelationshipEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@Column(nullable=false)
+	@Column
 	private long accountId;
 			
-	@Column(nullable=false)
+	@Column
 	private long userId;
 
 }

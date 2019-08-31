@@ -1,16 +1,24 @@
 package com.example.netflix.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.netflix.entity.NetflixAccountEntity;
+import com.example.netflix.entity.NetflixAccountUserRelationshipEntity;
+import com.example.netflix.entity.UserEntity;
 import com.example.netflix.repository.NetflixAccountRepository;
+import com.example.netflix.repository.NetflixAccountUserRelationshipRepository;
 
 @Service
 public class NetflixAccountServiceImpl implements NetflixAccountService {
 
 	@Autowired
 	NetflixAccountRepository netflixAccountRepository;
+	
+	@Autowired
+	NetflixAccountUserRelationshipRepository netflixAccountRelationshipRepository;
 	
 	//새로운 계정 추가 실패하면 null 성공하면 entity 반환
 	@Override
@@ -20,6 +28,7 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 			//이미 존재하는 이름이므로 실패
 			return null;
 		}
+		netflixAccountEntity.setStartDate(LocalDate.now());
 		NetflixAccountEntity savedAccount = netflixAccountRepository.save(netflixAccountEntity); //저장완료
 		
 		return savedAccount;
@@ -45,8 +54,14 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 		
 		return findedAccount;
 	}
+
 	
-	
-	
+	//해당 회원에게 할당 된 계정 불러오기
+	@Override
+	public NetflixAccountEntity getUsersAccount(UserEntity userEntity) {
+		NetflixAccountUserRelationshipEntity relationship = netflixAccountRelationshipRepository.findByUserId(userEntity.getId());
+		NetflixAccountEntity account = netflixAccountRepository.findById(relationship.getId());
+		return account;
+	}
 
 }

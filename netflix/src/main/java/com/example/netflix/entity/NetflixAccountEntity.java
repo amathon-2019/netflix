@@ -1,5 +1,7 @@
 package com.example.netflix.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,13 +21,15 @@ public class NetflixAccountEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@Column(nullable=false)
+	@Column
 	private String email;
 			
-	@Column(nullable=false)
+	@Column
 	private String password;
 	
-	@Column(nullable=false)
+	@Column
 	private int peopleCount;
 
+	@Column
+	private LocalDate startDate;
 }

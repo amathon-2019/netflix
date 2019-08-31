@@ -19,10 +19,13 @@ public class UserEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@Column(nullable=false)
+	@Column
 	private String email;
 			
-	@Column(nullable=false)
+	@Column
 	private String password;
+	
+	@Column
+	private boolean isPayed;
 
 }

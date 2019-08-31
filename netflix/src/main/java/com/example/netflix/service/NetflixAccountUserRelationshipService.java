@@ -9,4 +9,5 @@ public interface NetflixAccountUserRelationshipService {
 	
 	void deleteRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity);
 
+	void resetAccount(NetflixAccountEntity netflixAccountEntity);
 }
