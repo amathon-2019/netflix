@@ -1,5 +1,18 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="signup">
+    <h1>signup page</h1>
   </div>
 </template>
+
+<script>
+export default {
+  name: "signup"
+};
+</script>
+<style lang="scss">
+* {
+  background-color: #000000;
+}
+.signup {
+}
+</style>
