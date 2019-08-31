@@ -3,6 +3,10 @@
     <vue-glide class="home-glide" v-bind="glideOption">
       <vue-glide-slide class="home-glide-slide" v-for="i in 10" :key="i">Slide {{ i }}</vue-glide-slide>
     </vue-glide>
+    <div class="home-form">
+      <el-button class="gray">Login</el-button>
+      <el-button>Sign Up</el-button>
+    </div>
   </div>
 </template>
 
