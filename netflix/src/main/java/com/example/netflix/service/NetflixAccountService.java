@@ -10,5 +10,7 @@ public interface NetflixAccountService {
 	NetflixAccountEntity changePassword(NetflixAccountEntity netflixAccountEntity);
 	
 	NetflixAccountEntity getUsersAccount(UserEntity userEntity);
+	
+	void setToUnusedAccount(NetflixAccountEntity netflixAccountEntity);
 
 }

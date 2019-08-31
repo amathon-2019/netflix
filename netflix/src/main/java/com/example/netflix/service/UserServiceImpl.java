@@ -51,17 +51,20 @@ public class UserServiceImpl implements UserService{
 	// 비밀번호 맞는지 확인 후 맞으면 토큰 map 리턴, 틀리면 null 리턴
 	@Override
 	public Map<String, Object> login(UserEntity userEntity) throws Exception {
-		boolean available = userRepository.existsByEmail(userEntity.getEmail()); //이메일 있는지 확인
-		if (!available) return null ; //없으면 null 리턴
 		
 		UserEntity findedUser = userRepository.findByEmail(userEntity.getEmail()); //암호화된 비밀번호 받아와
+		if (findedUser==null) {
+			//실패 :이메일 없음
+			return null;
+		}
+		
 		if (passwordEncoder.matches(userEntity.getPassword(), findedUser.getPassword())) {//비밀번호 체크 시 맞으면 
 			Map<String, Object> result = new HashMap<>();
 			result.put("token", jwtService.makeJwt(findedUser));
+			findedUser.setPassword("");
 			result.put("user", findedUser);
 			return result; // "token" : 토큰 형식의 map
-		}
-		else
+		} else
 			return null; //비밀번호가 다르면 null 리턴
 	}
 
@@ -78,20 +81,29 @@ public class UserServiceImpl implements UserService{
 		int randomIndex;
 		NetflixAccountEntity selectedEntity;
 		
-		for (int i=3 ; i>=0 ; i--) {
+		for (int i=3 ; i>=1 ; i--) {
 			//날짜가 오늘날짜여야 함
 			accountList = netflixAccountRepository.findByPeopleCountAndStartDate(i, LocalDate.now());
+			System.out.println("i==" + i);
+			System.out.println(accountList);
 			if (accountList==null || accountList.size()<=0)
 				continue;
 			randomIndex = (int)(Math.random()*(accountList.size()));
 			selectedEntity = accountList.get(randomIndex);
+			System.out.println(selectedEntity);
 			
 			//랜덤으로 찾은 계정에 인원 할당
 			//relationship 추가
 			netflixAccountUserRelationshipService.makeRelationship(selectedEntity, userEntity);
 			
-			break;
+			return;
 		}
+		System.out.println("no");
+		//날짜가 없으므로 비어있는거중에 할당시켜 줘야 함
+		NetflixAccountEntity netflixAccount = netflixAccountRepository.findByPeopleCount(0).get(0);
+		netflixAccount.setStartDate(LocalDate.now());
+		netflixAccountUserRelationshipService.makeRelationship(netflixAccount, userEntity);
+
 	}
 	
 

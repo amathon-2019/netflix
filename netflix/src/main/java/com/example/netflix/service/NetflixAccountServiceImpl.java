@@ -20,6 +20,9 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 	@Autowired
 	NetflixAccountUserRelationshipRepository netflixAccountRelationshipRepository;
 	
+	@Autowired
+	PasswordFactory passwordFactory;
+	
 	//새로운 계정 추가 실패하면 null 성공하면 entity 반환
 	@Override
 	public NetflixAccountEntity addAccount(NetflixAccountEntity netflixAccountEntity) {
@@ -29,12 +32,15 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 			return null;
 		}
 		netflixAccountEntity.setStartDate(LocalDate.now());
+		System.out.println("!@#!@#");
+		System.out.println(netflixAccountEntity.getStartDate());
+		netflixAccountEntity.setPassword(passwordFactory.getPassword());
 		NetflixAccountEntity savedAccount = netflixAccountRepository.save(netflixAccountEntity); //저장완료
 		
 		return savedAccount;
 	}
 
-	//비밀번호 변경. 실패하면 null 성공하면 entity 반환
+	//비밀번호 랜덤으로 변경. 실패하면 null 성공하면 entity 반환
 	@Override
 	public NetflixAccountEntity changePassword(NetflixAccountEntity netflixAccountEntity) {
 		NetflixAccountEntity findedAccount;
@@ -48,8 +54,8 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 		if (findedAccount == null)
 			return null;
 		
-		//비밀번호 변경
-		findedAccount.setPassword(netflixAccountEntity.getPassword());
+		//비밀번호 변경 (랜덤으로)
+		findedAccount.setPassword(passwordFactory.getPassword());
 		netflixAccountRepository.save(findedAccount);
 		
 		return findedAccount;
@@ -60,8 +66,16 @@ public class NetflixAccountServiceImpl implements NetflixAccountService {
 	@Override
 	public NetflixAccountEntity getUsersAccount(UserEntity userEntity) {
 		NetflixAccountUserRelationshipEntity relationship = netflixAccountRelationshipRepository.findByUserId(userEntity.getId());
-		NetflixAccountEntity account = netflixAccountRepository.findById(relationship.getId());
+		NetflixAccountEntity account = netflixAccountRepository.findById(relationship.getAccountId());
 		return account;
+	}
+
+	//해당 계정은 아무도 안쓰는 계정이므로 안쓴거로 설정해주기(날짜 이상한걸로 바꿔줌 : 10년전껄로)
+	@Override
+	public void setToUnusedAccount(NetflixAccountEntity netflixAccountEntity) {
+		netflixAccountEntity.setStartDate(LocalDate.now().minusYears(10));
+		netflixAccountEntity.setPassword(passwordFactory.getPassword());
+		netflixAccountRepository.save(netflixAccountEntity);
 	}
 
 }

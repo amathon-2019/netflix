@@ -19,5 +19,7 @@ public interface NetflixAccountRepository extends CrudRepository<NetflixAccountE
 	List<NetflixAccountEntity> findByPeopleCountAndStartDate(int peopleCount, LocalDate startDate);
 	
 	List<NetflixAccountEntity> findByStartDate(LocalDate startDate);
+	
+	List<NetflixAccountEntity> findByPeopleCount(int peopleCount);
 
 }

@@ -20,7 +20,7 @@ public class NetflixAccountController {
 	@Autowired
 	NetflixAccountService netflixAccountService;
 	
-	//계정 추가
+	//계정 추가 (이메일만 보내주면 됨) 
 	@RequestMapping(value="/account/add", method=RequestMethod.POST)
 	public String addAccount(@RequestBody NetflixAccountEntity netflixAccountEntity, HttpServletResponse response) throws Exception{
 		NetflixAccountEntity newAccount = netflixAccountService.addAccount(netflixAccountEntity);
@@ -35,7 +35,7 @@ public class NetflixAccountController {
 		return new ObjectMapper().writeValueAsString(newAccount);
 	}
 	
-	//비밀번호 변경
+	//비밀번호 변경 (랜덤으로, 이메일만 보내주면 됨)
 	@RequestMapping(value="/account/change", method=RequestMethod.POST)
 	public String changeAccountPassword(@RequestBody NetflixAccountEntity netflixAccountEntity, HttpServletResponse response) throws Exception{
 		NetflixAccountEntity changedAccount = netflixAccountService.changePassword(netflixAccountEntity);
@@ -50,7 +50,7 @@ public class NetflixAccountController {
 		return new ObjectMapper().writeValueAsString(changedAccount);
 	}	
 	
-	// 유저에게 할당 된 계정 불러오기
+	// 유저에게 할당 된 계정 불러오기 (id만 불러오면 됨)
 	@RequestMapping(value="/account", method=RequestMethod.POST)
 	public String getAccount(@RequestBody UserEntity userEntity, HttpServletResponse response) throws Exception{
 		NetflixAccountEntity account = netflixAccountService.getUsersAccount(userEntity);
