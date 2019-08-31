@@ -20,7 +20,7 @@ public class NetflixAccountUserRelationshipServiceImpl implements NetflixAccount
 	
 	// 넷플릭스 계정 하나에 회원 한명 할당. 
 	@Override
-	public void makeRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity) {
+	public void makeRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity) throws Exception {
 		
 		// 두개의 아이디를 이용해 추가
 		NetflixAccountUserRelationshipEntity netflixAccountUserRelationshipEntity = new NetflixAccountUserRelationshipEntity();
@@ -37,7 +37,7 @@ public class NetflixAccountUserRelationshipServiceImpl implements NetflixAccount
 
 	// 넷플릭스 계정에 할당된 회원 삭제
 	@Override
-	public void deleteRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity) {
+	public void deleteRelationship(NetflixAccountEntity netflixAccountEntity, UserEntity userEntity) throws Exception {
 		
 		// 두개의 아이디를 이용해 삭제
 		netflixAccountUserRelationshipRepository.deleteByAccountIdAndUserId(netflixAccountEntity.getId(), userEntity.getId());
@@ -49,9 +49,9 @@ public class NetflixAccountUserRelationshipServiceImpl implements NetflixAccount
 
 	}
 
-	//해당 계정에 할당된 모든 relstionship 삭제
+	//해당 계정에 할당된 모든 relationship 삭제
 	@Override
-	public void resetAccount(NetflixAccountEntity netflixAccountEntity) {
+	public void resetAccount(NetflixAccountEntity netflixAccountEntity) throws Exception {
 		//relationship 전체 삭제
 		netflixAccountUserRelationshipRepository.deleteByAccountId(netflixAccountEntity.getId());
 		//할당된 회원 0명으로 저장

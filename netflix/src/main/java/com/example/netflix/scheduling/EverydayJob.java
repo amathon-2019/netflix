@@ -16,7 +16,7 @@ public class EverydayJob {
 	
 	//매일 0시마다
 	@Scheduled(cron = "0 0 0 * * ?")
-    public void execute() {
+    public void execute() throws Exception {
     	schedulingService.resetAndRegroup();
     	System.out.println("Reset Completed At");
     	System.out.println(LocalDateTime.now());

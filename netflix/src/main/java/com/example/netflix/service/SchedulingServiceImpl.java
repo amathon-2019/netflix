@@ -15,6 +15,7 @@ import com.example.netflix.entity.NetflixAccountUserRelationshipEntity;
 import com.example.netflix.entity.UserEntity;
 import com.example.netflix.repository.NetflixAccountRepository;
 import com.example.netflix.repository.NetflixAccountUserRelationshipRepository;
+import com.example.netflix.repository.UserRepository;
 
 @Service
 public class SchedulingServiceImpl implements SchedulingService{
@@ -29,11 +30,17 @@ public class SchedulingServiceImpl implements SchedulingService{
 	NetflixAccountUserRelationshipService netflixAccountUserRelationshipService;
 	
 	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
 	NetflixAccountService netflixAccountService;
 	
+	@Autowired
+	EmailSender emailSender;
+
 	//해당 날짜에 해당하는 계정 비밀번호 전체 리셋 : 회원들끼리 바꿔주기
 	@Transactional
-	public void resetAndRegroup() {
+	public void resetAndRegroup() throws Exception {
 		//해당 날짜에 해당하는 그룹들 불러오기(이전달)
 		//List<NetflixAccountEntity> accountList = netflixAccountRepository.findByStartDate(LocalDate.now().minusMonths(1l));
 		
@@ -64,7 +71,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 		Iterator<NetflixAccountEntity> accountIterator = accountList.iterator();
 		Iterator<NetflixAccountUserRelationshipEntity> usersIterator = allUsers.iterator();
 		NetflixAccountEntity group;
-		UserEntity user;
+		UserEntity user = new UserEntity();
 		
 		while (accountIterator.hasNext()) {
 			//그룹 하나 꺼내서
@@ -72,8 +79,12 @@ public class SchedulingServiceImpl implements SchedulingService{
 			//4명씩 채워준다
 			for (int i=0 ; i<4 ; i++) {
 				if (usersIterator.hasNext()) {
-					user = new UserEntity();
 					user.setId(usersIterator.next().getUserId());
+					if (!userRepository.findById(user.getId()).isPayed()) {
+						//결제 취소했으면 얘는 카운트에서 빼줌
+						i--;
+						continue;
+					}
 					netflixAccountUserRelationshipService.makeRelationship(group, user);
 				} else //더이상 사람 남아있지 않으면
 					break;
@@ -87,10 +98,25 @@ public class SchedulingServiceImpl implements SchedulingService{
 			netflixAccountService.setToUnusedAccount(accountIterator.next());
 		
 		//TODO 바뀐 유저들에게 이메일 보내주기
+		user = new UserEntity();
+		for (NetflixAccountUserRelationshipEntity changedUser : allUsers) {
+
+			user.setId(changedUser.getUserId());
+			NetflixAccountEntity account = netflixAccountService.getUsersAccount(user);
+			String body = "Email address : " + account.getEmail() + " \nPassword : " + account.getPassword();
+			emailSender.setSUBJECT("4Flix : Your Account!");
+			emailSender.setTEXTBODY(body);
+			emailSender.setTO(emailSender.getFROM());
+			try {
+				emailSender.sendEmail();
+			} catch (Exception e) {
+				e.printStackTrace(System.out);
+			}
+		}
 	}
 
 	@Override
-	public void test() {
+	public void test() throws Exception {
 		System.out.println("working!");
 	}
 
