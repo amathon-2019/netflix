@@ -36,12 +36,9 @@
 
 <script>
 const IMP = window.IMP;
-<<<<<<< HEAD
 import { mapGetters } from 'vuex';
 import axios from 'axios';
-=======
-import { mapGetters } from "vuex";
->>>>>>> 38e0c1a78b802c8bb9ec91ee2517e446524526a1
+
 export default {
   data() {
     return {
@@ -51,24 +48,22 @@ export default {
       prevPassword: '',
       newPassword: '',
       newPassword2: ''
-
     };
   },
   computed: {
-    ...mapGetters(["getUser", "getPayed"])
+    ...mapGetters(['getUser', 'getPayed'])
   },
   methods: {
     requestPay() {
       IMP.request_pay(
         {
-          pg: "kakaopay",
-          pay_method: "card",
-          merchant_uid: "merchant_" + new Date().getTime(),
-          name: "주문명:결제테스트",
+          pg: 'kakaopay',
+          pay_method: 'card',
+          merchant_uid: 'merchant_' + new Date().getTime(),
+          name: '주문명:결제테스트',
           amount: 4000,
           buyer_email: this.getUser.email,
           buyer_tel: '010-1234-5678'
-
         },
         rsp => {
           console.log(rsp);
@@ -108,10 +103,9 @@ export default {
                 this.netflixPw = res.password;
               })
               .catch(err => console.log(err));
-
           } else {
-            var msg = "결제에 실패하였습니다.";
-            msg += "에러내용 : " + rsp.error_msg;
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
 
             alert(msg);
           }
@@ -120,11 +114,11 @@ export default {
     }
   },
   mounted() {
-    IMP.init("imp52759429");
+    IMP.init('imp52759429');
     const user = this.getUser;
     if (this.getPayed) {
       this.$axios
-        .post("/account", { id: user.id })
+        .post('/account', { id: user.id })
         .then(res => {
           this.netflixEmail = res.data.email;
           this.netflixPw = res.data.password;
