@@ -14,6 +14,9 @@ export default new Vuex.Store({
     },
     getToken(state) {
       return state.token;
+    },
+    getPayed(state) {
+      return state.userData.payed;
     }
   },
   mutations: {
@@ -22,7 +25,7 @@ export default new Vuex.Store({
     },
     setToken(state, payload) {
       state.token = payload;
-    },
+    }
   },
   actions: {
     login({ commit }, payload) {
