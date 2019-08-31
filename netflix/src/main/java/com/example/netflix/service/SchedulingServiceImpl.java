@@ -34,7 +34,6 @@ public class SchedulingServiceImpl implements SchedulingService{
 	//해당 날짜에 해당하는 계정 비밀번호 전체 리셋 : 회원들끼리 바꿔주기
 	@Transactional
 	public void resetAndRegroup() {
-		System.out.println("@");
 		//해당 날짜에 해당하는 그룹들 불러오기(이전달)
 		//List<NetflixAccountEntity> accountList = netflixAccountRepository.findByStartDate(LocalDate.now().minusMonths(1l));
 		
@@ -53,10 +52,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 			tempUsers = netflixAccountUserRelationshipRepository.findByAccountId(account.getId());
 			allUsers.addAll(tempUsers);
 		}
-		
-		System.out.println("회원들 전체다");
-		System.out.println(allUsers);
-		
+				
 		//그 회원들 다 섞기
 		Collections.shuffle(allUsers);
 		
