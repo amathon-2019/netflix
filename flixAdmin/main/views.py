@@ -31,6 +31,9 @@ def adminPage(request):
                                           'relationCnt':relationCnt, 'object_list':party})
 
 def partyView(request, id):
-    relation = Accountuserrelationship.objects.filter(account_id=id)
+    relations = Accountuserrelationship.objects.filter(account_id=id)
+    users = list()
+    for relation in relations:
+        users.append(User.objects.get(id=relation.user_id))
 
-    return render(request, 'relationView.html', {'relation': relation})
+    return render(request, 'relationView.html', {'users': users, 'account':id})

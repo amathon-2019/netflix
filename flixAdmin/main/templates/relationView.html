@@ -149,26 +149,23 @@
             <!-- List -->
             <div class="col-xl-12 col-lg-12">
               <div class="card shadow mb-4">
+                  <b2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Account : {{account}}</b2>
                 <div class="card-body">
-                  {% if relation %}
+                  {% if users %}
                 <table class="table table-hover table-striped bg-white">
                     <thead>
                     <tr>
-                        <th style="width: 7%;">NO</th>
-                        <th style="width: 36%;">PARTY MAIL</th>
-                        <th style="width: 35%">PASSWORD</th>
-                        <th style="width: 15%;">START_DATE</th>
-                        <th style="width: 7%;">USER</th>
+                        <th style="width: 38%;">USER ID</th>
+                        <th style="width: 38%">USER MAIL</th>
+                        <th style="width: 24%;">IS_PAYED</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for party in relation %}
-                    <tr onclick="location.href='/partyView/{{party.id}}'">
-                        <td>{{ party.id }}</td>
-                        <td style="text-align: left">{{ party.email }}</td>
-                        <td>{{ party.password }}</td>
-                        <td>{{ party.start_date }}</td>
-                        <td>{{ party.people_count }}</td>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td style="text-align: left">{{ user.email }}</td>
+                        <td>{{ user.isPayed }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -176,6 +173,7 @@
                 {% else %}
                 <p>404 NO CONTENT</p>
                 {% endif %}
+                    <button class="btn-danger">삭제</button>
                 </div>
               </div>
             </div>
