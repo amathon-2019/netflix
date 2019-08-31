@@ -2,7 +2,7 @@ package com.example.netflix.service;
 
 public interface SchedulingService {
 
-	void resetAndRegroup();
+	void resetAndRegroup() throws Exception;
 	
-	void test();
+	void test() throws Exception;
 }
