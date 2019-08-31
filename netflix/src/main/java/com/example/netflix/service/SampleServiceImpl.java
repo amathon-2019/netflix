@@ -13,7 +13,7 @@ public class SampleServiceImpl implements SampleService{
 	SampleRepository sampleRepository;
 	
 	@Override
-	public SampleEntity getSample(long id) {
+	public SampleEntity getSample(long id) throws Exception {
 		return sampleRepository.findById(id);
 	}
 }

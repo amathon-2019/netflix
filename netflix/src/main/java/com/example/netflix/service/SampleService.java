@@ -4,6 +4,6 @@ import com.example.netflix.entity.SampleEntity;
 
 public interface SampleService {
 
-	SampleEntity getSample(long id);
+	SampleEntity getSample(long id) throws Exception;
 	
 }
