@@ -27,3 +27,12 @@
 
 ## Slide
 [Click!](https://github.com/amathon-2019/netflix/blob/master/아마톤발표자료.pptx)
+
+## Demo Site
+- [4Flix](http://4flix-env.ryhmz4dua3.ap-northeast-2.elasticbeanstalk.com)
+- [4Flix-Admin](http://4flix-admin.jzzje9c9ip.ap-northeast-2.elasticbeanstalk.com)
+
+```
+ADMIN ID: testadmin
+ADMIN PW: 1234
+```
