@@ -25,7 +25,7 @@ public class SampleController {
 
 	@RequestMapping(value="/sample", method=RequestMethod.GET)
 	public String sample(HttpServletResponse response) throws Exception{
-		schedulingService.resetAndRegroup();
+		schedulingService.resetAndRegroup(0);
 		
 		return null;
 	}
