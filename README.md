@@ -10,20 +10,23 @@
 
 ## 디렉토리 구조와 기술 스택
 ### 4flix
-프론트엔드 프로젝트, Vue.js
+프론트엔드 프로젝트, Vue.js, AWS EB 기반 배포 완료
 
 ### Netflix
-백엔드 프로젝트, Spring boot, AWS EC2, AWS RDS
+백엔드 프로젝트, Spring boot, AWS EC2, AWS RDS 기반 배포 완료
 
 ### flixAdmin
-어드민 사이트, Django, AWS EB
+어드민 사이트, Django, AWS EB 기반 배포 완료
 
 ## Screenshots 
 <img src="https://github.com/amathon-2019/netflix/blob/master/screenshot/2.png?raw=true" height=500/> <img src="https://github.com/amathon-2019/netflix/blob/master/screenshot/1.png?raw=true" height=500/>
 <img src="https://github.com/amathon-2019/netflix/blob/master/screenshot/3.png?raw=true" height=400/>
 
-## Video
+## Demonstration Video
 [Click!](https://youtu.be/a_HFsW8PTns)
 
 ## Slide
 [Click!](https://github.com/amathon-2019/netflix/blob/master/아마톤발표자료.pptx)
+
+## Demo Site
+- [4Flix](http://4flix-env.ryhmz4dua3.ap-northeast-2.elasticbeanstalk.com) => AWS EB 배포
