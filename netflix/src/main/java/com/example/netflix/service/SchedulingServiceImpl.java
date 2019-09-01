@@ -124,6 +124,7 @@ public class SchedulingServiceImpl implements SchedulingService{
 					"		</tbody>\n" + 
 					"	</table>\n" + 
 					"</div>\n" + 
+					"<br><br><br><br><br><br><br><br>" + 
 					"</div>";
 			emailSender.setSUBJECT("4Flix : Your Account!");
 			emailSender.setTEXTBODY(body);

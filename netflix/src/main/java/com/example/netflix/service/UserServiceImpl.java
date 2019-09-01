@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService{
 				"	<h1 style=\"color: white\">4Flix에 가입하신 것을 환영합니다!</h1>\n" + 
 				"	<h3 style=\"color: white\">앞으로 안심하시고 계정공유 서비스를 누리시기 바랍니다.</h3>\n" + 
 				"</div>\n" + 
+				"<br><br><br><br><br><br><br><br>" + 
 				"</div>";
 		emailSender.setSUBJECT("Welcome To 4FLIX!");
 		emailSender.setTEXTBODY(body);
@@ -155,6 +156,7 @@ public class UserServiceImpl implements UserService{
 				"		</tbody>\n" + 
 				"	</table>\n" + 
 				"</div>\n" + 
+				"<br><br><br><br><br><br><br><br>" +
 				"</div>";
 		emailSender.setSUBJECT("4Flix : Your Account!");
 		emailSender.setTEXTBODY(body);
