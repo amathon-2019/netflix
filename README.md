@@ -26,7 +26,7 @@
 [Click!](https://youtu.be/a_HFsW8PTns)
 
 ## Slide
-[Click!](https://github.com/amathon-2019/netflix/blob/master/아마톤발표자료.pptx)
+[Click!](https://www.slideshare.net/younggwongwon/amathon-4flix)
 
 ## Demo Site
 - [4Flix](http://4flix-env.ryhmz4dua3.ap-northeast-2.elasticbeanstalk.com) => AWS EB 배포
